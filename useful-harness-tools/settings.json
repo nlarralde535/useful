@@ -1,0 +1,20 @@
+{
+  "env": {
+    "EDITOR": "vim"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git log *)",
+      "Bash(git grep *)",
+      "Read(//home/nic/.claude/plans/**)",
+      "Edit(//home/nic/.claude/plans/**)",
+      "Read(//home/nic/.claude/llmwiki/**)",
+      "Edit(//home/nic/.claude/llmwiki/**)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(git checkout *)"
+    ]
+  },
+  "model": "opus"
+}
