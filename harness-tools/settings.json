@@ -1,15 +1,16 @@
 {
+  "statusLine": {
+      "type": "command",
+      "command": "bash /root/.claude/statusline-command.sh",
+      "refreshInterval": 10
+  },
   "env": {
     "EDITOR": "vim"
   },
   "permissions": {
     "allow": [
       "Bash(git log *)",
-      "Bash(git grep *)",
-      "Read(//home/nic/.claude/plans/**)",
-      "Edit(//home/nic/.claude/plans/**)",
-      "Read(//home/nic/.claude/llmwiki/**)",
-      "Edit(//home/nic/.claude/llmwiki/**)"
+      "Bash(git grep *)"
     ],
     "deny": [
       "Bash(git push *)",

@@ -74,31 +74,21 @@ new_worktree() {
 # # # # # #
 git_branches() {
     #git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-    CENTRAL_NOTES_REPO_BRANCH=$(git -C /home/nic/Brain/Obsidian/Central-Notes-Repo branch | awk '$1 == "*" {printf "%s", $2}')
-    REPO_A_BRANCH=$(git -C /path/to/repo-A branch | awk '$1 == "*" {printf "%s", $2}')
-    REPO_B_BRANCH=$(git -C /path/to/repo-B branch | awk '$1 == "*" {printf "%s", $2}')
+    CENTRAL_NOTES_REPO_BRANCH=$(git -C /home/nic/Brain/Obsidian/Central-Notes-Repo branch 2> /dev/null | awk '$1 == "*" {printf "%s", $2}')
+    USEFUL_REPO_BRANCH=$(git -C /home/nic/repos/useful branch 2> /dev/null | awk '$1 == "*" {printf "%s", $2}')
+    SDE_AGENTIC_WORKFLOW_REPO_BRANCH=$(git -C /home/nic/repos/sde-agentic-workflow branch 2> /dev/null | awk '$1 == "*" {printf "%s", $2}')
 
-    if [[ "$PWD" =~ ^/path/to/repo-C]]
+    if [[ "$PWD" =~ ^/home/nic/Brain/Obsidian/Central-Notes-Repo(/|$) ]]
     then
-      printf " ->[Repo B: %s]<-  ${BLUE}Central Notes Repo:%s${RESET}  ${BLUE}Repo A:%s${RESET}" $REPO_B_BRANCH $CENTRAL_NOTES_REPO_BRANCH $REPO_A_BRANCH
-    elif [[ "$PWD" =~ ^/home/nic/Brain/Obsidian/Central-Notes-Repo ]]
+        printf " ->[Central Notes Repo: %s]<-" "$CENTRAL_NOTES_REPO_BRANCH"
+    elif [[ "$PWD" =~ ^/home/nic/repos/useful(/|$) ]]
     then
-      printf " ->[Central Notes Repo: %s]<-  ${BLUE}Repo A:%s${RESET}  ${BLUE}Repo B:%s${RESET}" $CENTRAL_NOTES_REPO_BRANCH $REPO_A_BRANCH $REPO_B_BRANCH
-    elif [[ "$PWD" =~ ^/path/to/repo-B ]]
+        printf " ->[Useful Repo: %s]<-" "$USEFUL_REPO_BRANCH"
+    elif [[ "$PWD" =~ ^/home/nic/repos/sde-agentic-workflow(/|$) ]]
     then
-        if ! [[  "$PWD" =~ /plugins ]]
-        then
-             printf " ->[Repo A: %s]<-  ${BLUE}Central Notes Repo:%s${RESET}  ${BLUE}Repo B:%s${RESET}" $REPO_A_BRANCH $CENTRAL_NOTES_REPO_BRANCH $REPO_B_BRANCH
-        fi
+        printf " ->[SDE Agentic Workflow Repo: %s]<-" "$SDE_AGENTIC_WORKFLOW_REPO_BRANCH"
     else
-        if [ -a ./.git ];
-        then
-            BRANCH=$(git branch | awk '$1 == "*" {printf "%s", $2}')
-            printf " ->[PWD: %s]<-  ${BLUE}Repo A:%s${RESET}  ${BLUE}Central Notes Repo:%s${RESET}  ${BLUE}Repo B:%s${RESET}" $BRANCH $REPO_A_BRANCH $CENTRAL_NOTES_REPO_BRANCH $REPO_B_BRANCH
-        else
-            printf " [no git repo here] ${BLUE}Repo A:%s${RESET}  ${BLUE}Central Notes Repo:%s${RESET}  ${BLUE}Repo B:%s${RESET}" $REPO_A_BRANCH $CENTRAL_NOTES_REPO_BRANCH $REPO_B_BRANCH
-        fi
-
+        printf " [no git repo here]"
     fi
 }
 
